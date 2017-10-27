@@ -1397,7 +1397,8 @@ public class MainWindow {
 	private void sortByNewestDate(JFileChooser fc) {
 		//  Find the JTable on the file chooser panel, and manually do the sort (hack suggested by camickr on StackOverflow)
 		JTable table = SwingUtils.getDescendantsOfType(JTable.class, fc).get(0);
-		table.getRowSorter().toggleSortOrder(3);
+		table.getRowSorter().toggleSortOrder(3);	// sort by date, earliest first...
+		table.getRowSorter().toggleSortOrder(3);	// ...latest first
 	}
 	
 	private class SwingActionEraseEvents extends AbstractAction {
