@@ -9,6 +9,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
@@ -40,6 +43,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,6 +52,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import javax.swing.Action;
 import javax.swing.JScrollPane;
 
@@ -60,10 +66,7 @@ public class MainWindow {
 	
 	private final String newLine = System.lineSeparator();
 	
-	private final String pathSeparator = "\\";
-	private final String pathWrapper = "\"";
-	private final char wildcardChar1 = '*';
-	private final char wildcardChar2 = '?';
+	private final String pathSeparator = File.separator;
 
 	public static String argConfigFile = null;	// requested configuration file passed to program in initial arguments
 	private String configFilename = "SignageUpdate.cfg";
@@ -982,29 +985,32 @@ public class MainWindow {
 		 * File content sequence and format must be matched to loadConfigFile
 		 */
 		try {
-			FileWriter fileWriter = new FileWriter(configFile);
-
-			// write header
-			fileWriter.write(configFileHeader + newLine);
-			
-			// write contents
-			fileWriter.write(announcementFolder + newLine);
-			fileWriter.write(eventFolder + newLine);
-			fileWriter.write(layoutFolder + newLine);
-			fileWriter.write(signageFolder + newLine);
-			fileWriter.write(remoteRebootComputerFilename + newLine);
-			fileWriter.write(remoteRelaunchFilename + newLine);
-			fileWriter.write(remoteRelaunchNoEventsFilename + newLine);
-			fileWriter.write(announcementsFilename + newLine);
-			fileWriter.write(eventsTodayFilename + newLine);
-			fileWriter.write(tickerLayoutFilename + newLine);
-			fileWriter.write(newAnnouncementsFilename + newLine);
-			
+			String configContent =
+					configFileHeader + newLine +
+					announcementFolder + newLine +
+					eventFolder + newLine +
+					layoutFolder + newLine +
+					signageFolder + newLine +
+					remoteRebootComputerFilename + newLine +
+					remoteRelaunchFilename + newLine +
+					remoteRelaunchNoEventsFilename + newLine +
+					announcementsFilename + newLine +
+					eventsTodayFilename + newLine +
+					tickerLayoutFilename + newLine +
+					newAnnouncementsFilename + newLine;
 			for (int dayIndex=0; dayIndex < eventDailyFilenames.length; dayIndex++) {
-				fileWriter.write(eventDailyFilenames[dayIndex] + newLine);
+				configContent += eventDailyFilenames[dayIndex] + newLine;
 			}
-
-			fileWriter.close();
+			
+			if (realActions) {				
+				FileWriter fileWriter = new FileWriter(configFile);
+				fileWriter.write(configContent);
+				fileWriter.close();
+			}
+			else {
+				JOptionPane.showMessageDialog(frame, "create ["+configFile.toPath()+"]\nand write config lines:\n" +
+						configContent);				
+			}
 		} catch (IOException e) {
 	    	JOptionPane.showMessageDialog(frame, "Error while writing to requested config file:\n"+configFile.getAbsolutePath(), "Write error", JOptionPane.ERROR_MESSAGE);
 	    	return;
@@ -1081,20 +1087,21 @@ public class MainWindow {
 			}
 			waitDialog.setVisible(false);
 			
-			ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "echo ... > " + pathWrapper + remoteRelaunchFilename + pathWrapper);
-			File dir = new File(signageFolder);
-			pb.directory(dir);
-			try {
-				if (realActions) {
-					pb.start();
+			final String targetFilename = signageFolder + pathSeparator + remoteRelaunchFilename;
+			if (realActions) {
+				try {
+					FileWriter fileWriter = new FileWriter(targetFilename);
+					fileWriter.write("...");	// any content
+					fileWriter.close();
+				} catch (IOException exc) {
+			    	JOptionPane.showMessageDialog(frame, "Error writing to signage computer:\n"+targetFilename, "Unable to command relaunch", JOptionPane.ERROR_MESSAGE);
+			    	return;
 				}
-				else {
-					JOptionPane.showMessageDialog(frame, "[" + pb.directory().toString() + "] " + pb.command().toString());
-				}
-				JOptionPane.showMessageDialog(frame, "Complete!  Signage relaunch should finish shortly.");
-			} catch (IOException e1) {
-				JOptionPane.showMessageDialog(frame, "Error writing to signage computer [" + signageFolder + "]", "Unable to command relaunch", JOptionPane.ERROR_MESSAGE);
 			}
+			else {
+				JOptionPane.showMessageDialog(frame, "create ["+targetFilename+"] ...");				
+			}
+			JOptionPane.showMessageDialog(frame, "Complete!  Signage relaunch should finish shortly.");
 		}
 	}
 	
@@ -1116,20 +1123,21 @@ public class MainWindow {
 			}
 			waitDialog.setVisible(false);
 			
-			ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "echo ... > " + pathWrapper + remoteRebootComputerFilename + pathWrapper);
-			File dir = new File(signageFolder);
-			pb.directory(dir);
-			try {
-				if (realActions) {
-					pb.start();
+			final String targetFilename = signageFolder + pathSeparator + remoteRebootComputerFilename;
+			if (realActions) {
+				try {
+					FileWriter fileWriter = new FileWriter(targetFilename);
+					fileWriter.write("...");	// any content
+					fileWriter.close();
+				} catch (IOException exc) {
+			    	JOptionPane.showMessageDialog(frame, "Error writing to signage computer:\n"+targetFilename, "Unable to command reboot", JOptionPane.ERROR_MESSAGE);
+			    	return;
 				}
-				else {
-					JOptionPane.showMessageDialog(frame, "[" + pb.directory().toString() + "] " + pb.command().toString());
-				}
-				JOptionPane.showMessageDialog(frame, "Complete!  Signage computer should reboot shortly.");
-			} catch (IOException e1) {
-				JOptionPane.showMessageDialog(frame, "Error writing to signage computer [" + signageFolder + "]", "Unable to command reboot", JOptionPane.ERROR_MESSAGE);
 			}
+			else {
+				JOptionPane.showMessageDialog(frame, "create ["+targetFilename+"] ...");				
+			}
+			JOptionPane.showMessageDialog(frame, "Complete!  Signage computer should reboot shortly.");
 		}
 	}
 	
@@ -1151,20 +1159,21 @@ public class MainWindow {
 			}
 			waitDialog.setVisible(false);
 			
-			ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "echo ... > " + pathWrapper + remoteRelaunchNoEventsFilename + pathWrapper);
-			File dir = new File(signageFolder);
-			pb.directory(dir);
+			final String targetFilename = signageFolder + pathSeparator + remoteRelaunchNoEventsFilename;
 			try {
 				if (realActions) {
-					pb.start();
+					FileWriter fileWriter = new FileWriter(targetFilename);
+					fileWriter.write("...");	// any content
+					fileWriter.close();
 				}
 				else {
-					JOptionPane.showMessageDialog(frame, "[" + pb.directory().toString() + "] " + pb.command().toString());
+					JOptionPane.showMessageDialog(frame, "create ["+targetFilename+"] ...");				
 				}
-				JOptionPane.showMessageDialog(frame, "Complete!  Clearing current events, plus signage relaunch, should finish shortly.");
-			} catch (IOException e1) {
-				JOptionPane.showMessageDialog(frame, "Error writing to signage computer [" + signageFolder + "]", "Unable to command erase and relaunch", JOptionPane.ERROR_MESSAGE);
+			} catch (IOException exc) {
+		    	JOptionPane.showMessageDialog(frame, "Error writing to signage computer:\n"+targetFilename, "Unable to command erase and relaunch", JOptionPane.ERROR_MESSAGE);
+		    	return;
 			}
+			JOptionPane.showMessageDialog(frame, "Complete!  Clearing current events, plus signage relaunch, should finish shortly.");			
 		}
 	}
 	
@@ -1201,35 +1210,29 @@ public class MainWindow {
 			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fc.setMultiSelectionEnabled(false);
 		    fc.setFileFilter(new ExtensionFileFilter("pptx", new String[] { "pptx" })); // no ppt since we copy to a fixed destination file name.pptx		    
+			disableFileChooserEdit(fc);
+			setDetailView(fc);
 
 			int returnVal = fc.showDialog(frame, "Copy to signage");
 			switch (returnVal) {
 				case JFileChooser.APPROVE_OPTION: 
-					String tickerFilename = null;
-					try {
-						tickerFilename = fc.getSelectedFile().getCanonicalPath();
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(frame, "Unable to access selected file.  No file copied.", "Error on read", JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-					
-					final String command = "copy " + pathWrapper + tickerFilename + pathWrapper + " " + tickerLayoutFilename;
-					ProcessBuilder pb = new ProcessBuilder("cmd", "/c", command);
-					File dir = new File(signageFolder);
-					pb.directory(dir);
+					final String targetFilename = signageFolder + pathSeparator + tickerLayoutFilename;
+					final File targetFile = new File(targetFilename);
 					try {
 						if (realActions) {
-							pb.start();
+							Files.copy(fc.getSelectedFile().toPath(), 													// source path and file on local network
+									targetFile.toPath(),	// destination path and filename on signage computer
+									StandardCopyOption.REPLACE_EXISTING);												// overwrite any existing file
 						}
 						else {
-							JOptionPane.showMessageDialog(frame, "[" + pb.directory().toString() + "] " + pb.command().toString());
+							JOptionPane.showMessageDialog(frame, "copy from[" + fc.getSelectedFile().toPath() + "]\nto[" + targetFile.toPath() + "]");							
 						}
-					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(frame, "Error copying to signage computer [" + signageFolder + "]", "Unable to copy", JOptionPane.ERROR_MESSAGE);
+					} catch (Exception exc) {
+				    	JOptionPane.showMessageDialog(frame, "Error writing to signage computer:\n"+targetFile.toPath().toString(), "Unable to copy layout file", JOptionPane.ERROR_MESSAGE);
+				    	return;
 					}
 					
-					
-					JOptionPane.showMessageDialog(frame, "Ticker layout file: " + tickerFilename + "\ncopied to signage computer: " + tickerLayoutFilename + "\n(but signage not yet relaunched).", "Announcements file copied", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "Ticker layout file: " + fc.getSelectedFile().toPath() + "\ncopied to signage computer: " + targetFile.getPath() + "\n(but signage not yet relaunched).", "Announcements file copied", JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case JFileChooser.CANCEL_OPTION:
 					JOptionPane.showMessageDialog(frame, "No file copied.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
@@ -1269,35 +1272,30 @@ public class MainWindow {
 			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fc.setMultiSelectionEnabled(false);
 		    fc.setFileFilter(new ExtensionFileFilter("pptx", new String[] { "pptx" })); // no ppt since we copy to a fixed destination file name.pptx		    
+			disableFileChooserEdit(fc);
+			setDetailView(fc);
+			sortByNewestDate(fc);
 
 			int returnVal = fc.showDialog(frame, "Copy to signage");
 			switch (returnVal) {
-				case JFileChooser.APPROVE_OPTION: 
-					String announcementFilename = null;
-					try {
-						announcementFilename = fc.getSelectedFile().getCanonicalPath();
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(frame, "Unable to access selected file.  No file copied.", "Error on read", JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-					
-					final String command = "copy " + pathWrapper + announcementFilename + pathWrapper + " " + newAnnouncementsFilename;
-					ProcessBuilder pb = new ProcessBuilder("cmd", "/c", command);
-					File dir = new File(signageFolder);
-					pb.directory(dir);
+				case JFileChooser.APPROVE_OPTION:
+					final String targetFilename = signageFolder + pathSeparator + newAnnouncementsFilename;
+					final File targetFile = new File(targetFilename);
 					try {
 						if (realActions) {
-							pb.start();
+							Files.copy(fc.getSelectedFile().toPath(), 													// source path and file on local network
+									targetFile.toPath(),	// destination path and filename on signage computer
+									StandardCopyOption.REPLACE_EXISTING);												// overwrite any existing file
 						}
 						else {
-							JOptionPane.showMessageDialog(frame, "[" + pb.directory().toString() + "] " + pb.command().toString());
+							JOptionPane.showMessageDialog(frame, "copy from[" + fc.getSelectedFile().toPath() + "]\nto[" + targetFile.toPath() + "]");							
 						}
-					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(frame, "Error copying to signage computer [" + signageFolder + "]", "Unable to copy", JOptionPane.ERROR_MESSAGE);
+					} catch (Exception exc) {
+				    	JOptionPane.showMessageDialog(frame, "Error writing to signage computer:\n"+targetFile.toPath().toString(), "Unable to copy announcements file", JOptionPane.ERROR_MESSAGE);
+				    	return;
 					}
 					
-					
-					JOptionPane.showMessageDialog(frame, "Announcements file: " + announcementFilename + "\ncopied to signage computer: " + newAnnouncementsFilename + "\n(but signage not yet relaunched).", "Announcements file copied", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "Announcements file: " + fc.getSelectedFile().toPath() + "\ncopied to signage computer: " + targetFile.getPath() + "\n(but signage not yet relaunched).", "Announcements file copied", JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case JFileChooser.CANCEL_OPTION:
 					JOptionPane.showMessageDialog(frame, "No file copied.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
@@ -1337,6 +1335,8 @@ public class MainWindow {
 			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fc.setMultiSelectionEnabled(true);
 		    fc.setFileFilter(new ListedFileFilter("events_<DayOfWeek>.pptx", eventDailyFilenames)); // specific files only, based on what is used by signage computer's script		    
+			disableFileChooserEdit(fc);
+			setDetailView(fc);
 
 			int returnVal = fc.showDialog(frame, "Copy to signage");
 			switch (returnVal) {
@@ -1346,29 +1346,21 @@ public class MainWindow {
 					
 					// copy each selected file to the signage computer
 					for (File eventFile : eventFilenamesArray) {
-						String eventFilename = null;
-						try {
-							eventFilename = eventFile.getCanonicalPath();	// name with path
-						} catch (Exception e1) {
-							JOptionPane.showMessageDialog(frame, "Unable to access selected file #" + (filesCopied+1) + "\n(not copied)", "Error on read", JOptionPane.ERROR_MESSAGE);
-							continue;	// try next file
-						}
-						String nameOnly = eventFile.getName();					// name only (for pasting into "current directory" on signage computer)
-					
-						final String command = "copy " + pathWrapper + eventFilename + pathWrapper + " " + nameOnly;
-						ProcessBuilder pb = new ProcessBuilder("cmd", "/c", command);
-						File dir = new File(signageFolder);
-						pb.directory(dir);
+						final String targetFilename = signageFolder + pathSeparator + eventFile.getName();
+						final File targetFile = new File(targetFilename);
 						try {
 							if (realActions) {
-								pb.start();
+								Files.copy(eventFile.toPath(), 					// source path and file on local network
+										targetFile.toPath(),					// destination path and filename on signage computer
+										StandardCopyOption.REPLACE_EXISTING);	// overwrite any existing file
 							}
 							else {
-								JOptionPane.showMessageDialog(frame, "[" + pb.directory().toString() + "] " + pb.command().toString());
+								JOptionPane.showMessageDialog(frame, "copy from[" + eventFile.toPath() + "]\nto[" + targetFile.toPath() + "]");							
 							}
 							filesCopied++;
-						} catch (IOException e1) {
-							JOptionPane.showMessageDialog(frame, "Error copying to signage computer [" + signageFolder + "]", "Unable to copy", JOptionPane.ERROR_MESSAGE);
+						} catch (Exception exc) {
+					    	JOptionPane.showMessageDialog(frame, "Error writing to signage computer:\n"+targetFile.toPath().toString(), "Unable to copy events file", JOptionPane.ERROR_MESSAGE);
+					    	return;
 						}
 					}					
 					
@@ -1382,6 +1374,30 @@ public class MainWindow {
 					break;
 			}
 		}
+	}
+	
+	private void disableFileChooserEdit(JFileChooser fc) {
+		// disable ability of user to edit filename line (they could still edit filenames in the table view, just not in the bottom line)
+		try {
+			JTextField jTextField = SwingUtils.getDescendantOfType(
+				    JTextField.class, fc, "Text", "");
+			if (jTextField != null) {
+				jTextField.setEditable(false);
+			}			
+		} catch (Exception exc) {
+			// no action
+		}
+	}
+	
+	private void setDetailView(JFileChooser fc) {
+		Action details = fc.getActionMap().get("viewTypeDetails");
+		details.actionPerformed(null);
+	}
+	
+	private void sortByNewestDate(JFileChooser fc) {
+		//  Find the JTable on the file chooser panel, and manually do the sort (hack suggested by camickr on StackOverflow)
+		JTable table = SwingUtils.getDescendantsOfType(JTable.class, fc).get(0);
+		table.getRowSorter().toggleSortOrder(3);
 	}
 	
 	private class SwingActionEraseEvents extends AbstractAction {
@@ -1406,7 +1422,9 @@ public class MainWindow {
 			fc.setDialogTitle("Select daily event file(s) to erase from signage computer");
 			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fc.setMultiSelectionEnabled(true);
-		    fc.setFileFilter(new ListedFileFilter("events_<DayOfWeek>.pptx", eventDailyFilenames)); // specific files only, based on what is used by signage computer's script		    
+			disableFileChooserEdit(fc);
+			setDetailView(fc);
+		    fc.setFileFilter(new ListedFileFilter("events_<DayOfWeek>.pptx", eventDailyFilenames, false)); // specific files only, in specific directory, based on what is used by signage computer's script		    
 
 			int returnVal = fc.showDialog(frame, "Erase from signage");
 			switch (returnVal) {
@@ -1414,28 +1432,20 @@ public class MainWindow {
 					File[] eventFilenamesArray = fc.getSelectedFiles();
 					int filesErased = 0;
 					
-					// copy each selected file to the signage computer
+					// erase each selected file from the signage computer
 					for (File eventFile : eventFilenamesArray) {
-						String nameOnly = eventFile.getName();					// name only (in "current directory" on signage computer)
-						if (nameOnly.indexOf(wildcardChar1) != -1 || nameOnly.indexOf(wildcardChar2) != -1) {
-							JOptionPane.showMessageDialog(frame, "Wildcard characters not allowed in filename [" + nameOnly + "]", "Unable to erase", JOptionPane.ERROR_MESSAGE);
-						}
-					
-						final String command = "erase " + nameOnly;
-						ProcessBuilder pb = new ProcessBuilder("cmd", "/c", command);
-						File dir = new File(signageFolder);
-						pb.directory(dir);
 						try {
 							if (realActions) {
-								pb.start();
+								Files.delete(eventFile.toPath());
 							}
 							else {
-								JOptionPane.showMessageDialog(frame, "[" + pb.directory().toString() + "] " + pb.command().toString());
+								JOptionPane.showMessageDialog(frame, "deleting [" + eventFile.toPath() + "]");							
 							}
 							filesErased++;
-						} catch (IOException e1) {
-							JOptionPane.showMessageDialog(frame, "Error erasing file from signage computer [" + signageFolder + "]", "Unable to erase", JOptionPane.ERROR_MESSAGE);
-						}
+						} catch (Exception exc) {
+					    	JOptionPane.showMessageDialog(frame, "Error erasing from signage computer:\n"+eventFile.toPath().toString(), "Unable to erase events file", JOptionPane.ERROR_MESSAGE);
+					    	return;
+						}						
 					}					
 					
 					JOptionPane.showMessageDialog(frame, "" + filesErased + " events file" + (eventFilenamesArray.length > 1 ? "s" : "") + " erased from signage computer\n" + signageFolder, "Event file(s) erased", JOptionPane.INFORMATION_MESSAGE);
@@ -1496,6 +1506,7 @@ public class MainWindow {
 			fc.setMultiSelectionEnabled(false);
 		    fc.setFileFilter(new ExtensionFileFilter("cfg", new String[] { "cfg" }));	
 		    fc.setSelectedFile(new File(configFilename));	// default file
+			setDetailView(fc);
 
 			int returnVal = fc.showDialog(frame, "Save config");
 			switch (returnVal) {
