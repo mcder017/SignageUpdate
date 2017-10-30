@@ -289,6 +289,7 @@ public class MainWindow {
 		panelSouth.setLayout(gbl_panelSouth);
 		
 		JTextPane txtpnSignagecomputerstatustext = new JTextPane();
+		txtpnSignagecomputerstatustext.setEditable(false);
 		txtpnSignagecomputerstatustext.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtpnSignagecomputerstatustext.setText("Signage Computer Status");
 		GridBagConstraints gbc_txtpnSignagecomputerstatustext = new GridBagConstraints();
@@ -309,6 +310,7 @@ public class MainWindow {
 		panelSouth.add(btnStatusRefresh, gbc_btnStatusRefresh);
 		
 		JTextPane txtpnCurrentScreenLayout = new JTextPane();
+		txtpnCurrentScreenLayout.setEditable(false);
 		txtpnCurrentScreenLayout.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtpnCurrentScreenLayout.setText("Current screen layout:");
 		GridBagConstraints gbc_txtpnCurrentScreenLayout = new GridBagConstraints();
@@ -334,6 +336,7 @@ public class MainWindow {
 		panelSouth.add(textAreaCurrentScreenLayout, gbc_txtrFullScreenAnnouncements);
 		
 		JTextPane txtpnFile = new JTextPane();
+		txtpnFile.setEditable(false);
 		txtpnFile.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtpnFile.setText("File");
 		GridBagConstraints gbc_txtpnFile = new GridBagConstraints();
@@ -344,6 +347,7 @@ public class MainWindow {
 		panelSouth.add(txtpnFile, gbc_txtpnFile);
 		
 		JTextPane txtpnContentSavedDatetime = new JTextPane();
+		txtpnContentSavedDatetime.setEditable(false);
 		txtpnContentSavedDatetime.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtpnContentSavedDatetime.setText("Date/time content saved (or \"None\" if file not present)");
 		GridBagConstraints gbc_txtpnContentSavedDatetime = new GridBagConstraints();
@@ -355,6 +359,7 @@ public class MainWindow {
 		panelSouth.add(txtpnContentSavedDatetime, gbc_txtpnContentSavedDatetime);
 		
 		JTextPane txtpnSignageSlides = new JTextPane();
+		txtpnSignageSlides.setEditable(false);
 		txtpnSignageSlides.setFont(new Font("Tahoma", Font.BOLD, 10));
 		txtpnSignageSlides.setText("Announcements (currently shown)");
 		GridBagConstraints gbc_txtpnSignageSlides = new GridBagConstraints();
@@ -365,6 +370,7 @@ public class MainWindow {
 		panelSouth.add(txtpnSignageSlides, gbc_txtpnSignageSlides);
 		
 		JTextPane txtpnAnnouncementsFilename = new JTextPane();
+		txtpnAnnouncementsFilename.setEditable(false);
 		txtpnAnnouncementsFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnAnnouncementsFilename.setText(announcementsFilename);
 		GridBagConstraints gbc_txtpnSignageFilename = new GridBagConstraints();
@@ -376,6 +382,7 @@ public class MainWindow {
 		panelSouth.add(txtpnAnnouncementsFilename, gbc_txtpnSignageFilename);
 		
 		JTextPane txtpnAnnouncementsDateTime = new JTextPane();
+		txtpnAnnouncementsDateTime.setEditable(false);
 		txtpnAnnouncementsDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnAnnouncementsDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnSignageDateTime = new GridBagConstraints();
@@ -389,6 +396,7 @@ public class MainWindow {
 		fileStatusMap.put(txtpnAnnouncementsFilename,txtpnAnnouncementsDateTime);
 		
 		JTextPane txtpnEventsCurrent = new JTextPane();
+		txtpnEventsCurrent.setEditable(false);
 		txtpnEventsCurrent.setFont(new Font("Tahoma", Font.BOLD, 10));
 		txtpnEventsCurrent.setText("Events (currently shown)");
 		GridBagConstraints gbc_txtpnEventsCurrent = new GridBagConstraints();
@@ -400,6 +408,7 @@ public class MainWindow {
 		panelSouth.add(txtpnEventsCurrent, gbc_txtpnEventsCurrent);
 		
 		JTextPane txtpnEventsCurrentFilename = new JTextPane();
+		txtpnEventsCurrentFilename.setEditable(false);
 		txtpnEventsCurrentFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsCurrentFilename.setText(eventsTodayFilename);
 		GridBagConstraints gbc_txtpnEventsCurrentFilename = new GridBagConstraints();
@@ -412,6 +421,7 @@ public class MainWindow {
 
 		
 		JTextPane txtpnEventsCurrentDateTime = new JTextPane();
+		txtpnEventsCurrentDateTime.setEditable(false);
 		txtpnEventsCurrentDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsCurrentDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnEventsCurrentDateTime = new GridBagConstraints();
@@ -425,6 +435,7 @@ public class MainWindow {
 		fileStatusMap.put(txtpnEventsCurrentFilename,txtpnEventsCurrentDateTime);
 		
 		JTextPane txtpnAnnouncementsAtNext = new JTextPane();
+		txtpnAnnouncementsAtNext.setEditable(false);
 		txtpnAnnouncementsAtNext.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtpnAnnouncementsAtNext.setText("Announcements at next relaunch");
 		GridBagConstraints gbc_txtpnAnnouncementsAtNext = new GridBagConstraints();
@@ -437,6 +448,7 @@ public class MainWindow {
 		panelSouth.add(txtpnAnnouncementsAtNext, gbc_txtpnAnnouncementsAtNext);
 		
 		JTextPane txtpnifNoNew = new JTextPane();
+		txtpnifNoNew.setEditable(false);
 		txtpnifNoNew.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		txtpnifNoNew.setText("if no new file, then the current announcements file is kept unchanged");
 		GridBagConstraints gbc_txtpnifNoNew = new GridBagConstraints();
@@ -448,6 +460,7 @@ public class MainWindow {
 		panelSouth.add(txtpnifNoNew, gbc_txtpnifNoNew);
 		
 		JTextPane txtpnNewAnnouncements = new JTextPane();
+		txtpnNewAnnouncements.setEditable(false);
 		txtpnNewAnnouncements.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnNewAnnouncements.setText("Announcements (new)");
 		GridBagConstraints gbc_txtpnNewSignage = new GridBagConstraints();
@@ -458,6 +471,7 @@ public class MainWindow {
 		panelSouth.add(txtpnNewAnnouncements, gbc_txtpnNewSignage);
 		
 		JTextPane txtpnNewAnnouncementsFilename = new JTextPane();
+		txtpnNewAnnouncementsFilename.setEditable(false);
 		txtpnNewAnnouncementsFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnNewAnnouncementsFilename.setText(newAnnouncementsFilename);
 		GridBagConstraints gbc_txtpnNewSignageFilename = new GridBagConstraints();
@@ -468,6 +482,7 @@ public class MainWindow {
 		panelSouth.add(txtpnNewAnnouncementsFilename, gbc_txtpnNewSignageFilename);
 		
 		JTextPane txtpnNewAnnouncementsDateTime = new JTextPane();
+		txtpnNewAnnouncementsDateTime.setEditable(false);
 		txtpnNewAnnouncementsDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnNewAnnouncementsDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnNewSignageDateTime = new GridBagConstraints();
@@ -479,6 +494,7 @@ public class MainWindow {
 		fileStatusMap.put(txtpnNewAnnouncementsFilename, txtpnNewAnnouncementsDateTime);
 		
 		JTextPane txtpnQueuedEvents = new JTextPane();
+		txtpnQueuedEvents.setEditable(false);
 		txtpnQueuedEvents.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtpnQueuedEvents.setText("Events at next relaunch");
 		GridBagConstraints gbc_txtpnQueuedEvents = new GridBagConstraints();
@@ -490,6 +506,7 @@ public class MainWindow {
 		panelSouth.add(txtpnQueuedEvents, gbc_txtpnQueuedEvents);
 		
 		JTextPane txtpnRelaunchExplanation = new JTextPane();
+		txtpnRelaunchExplanation.setEditable(false);
 		txtpnRelaunchExplanation.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		txtpnRelaunchExplanation.setText("relaunches occur nightly, and when \"Relaunch\" is clicked above");
 		GridBagConstraints gbc_txtpnRelaunchExplanation = new GridBagConstraints();
@@ -502,6 +519,7 @@ public class MainWindow {
 		panelSouth.add(txtpnRelaunchExplanation, gbc_txtpnRelaunchExplanation);
 		
 		JTextPane txtpnNextSunday = new JTextPane();
+		txtpnNextSunday.setEditable(false);
 		txtpnNextSunday.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnNextSunday.setText("Sunday");
 		GridBagConstraints gbc_txtpnNextSunday = new GridBagConstraints();
@@ -513,6 +531,7 @@ public class MainWindow {
 		panelSouth.add(txtpnNextSunday, gbc_txtpnNextSunday);
 		
 		JTextPane txtpnEventsSunFilename = new JTextPane();
+		txtpnEventsSunFilename.setEditable(false);
 		txtpnEventsSunFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsSunFilename.setText(eventDailyFilenames[sundayIndex]);
 		GridBagConstraints gbc_txtpnEventsSunFilename = new GridBagConstraints();
@@ -524,6 +543,7 @@ public class MainWindow {
 		panelSouth.add(txtpnEventsSunFilename, gbc_txtpnEventsSunFilename);
 		
 		JTextPane txtpnEventsSunDateTime = new JTextPane();
+		txtpnEventsSunDateTime.setEditable(false);
 		txtpnEventsSunDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsSunDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnEventsSunDateTime = new GridBagConstraints();
@@ -537,6 +557,7 @@ public class MainWindow {
 		fileStatusMap.put(txtpnEventsSunFilename, txtpnEventsSunDateTime);
 		
 		JTextPane txtpnNextMonday = new JTextPane();
+		txtpnNextMonday.setEditable(false);
 		txtpnNextMonday.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnNextMonday.setText("Monday");
 		GridBagConstraints gbc_txtpnNextMonday = new GridBagConstraints();
@@ -548,6 +569,7 @@ public class MainWindow {
 		panelSouth.add(txtpnNextMonday, gbc_txtpnNextMonday);
 		
 		JTextPane txtpnEventsMonFilename = new JTextPane();
+		txtpnEventsMonFilename.setEditable(false);
 		txtpnEventsMonFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsMonFilename.setText(eventDailyFilenames[mondayIndex]);
 		GridBagConstraints gbc_txtpnEventsMonFilename = new GridBagConstraints();
@@ -559,6 +581,7 @@ public class MainWindow {
 		panelSouth.add(txtpnEventsMonFilename, gbc_txtpnEventsMonFilename);
 		
 		JTextPane txtpnEventsMonDateTime = new JTextPane();
+		txtpnEventsMonDateTime.setEditable(false);
 		txtpnEventsMonDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsMonDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnEventsMonDateTime = new GridBagConstraints();
@@ -572,6 +595,7 @@ public class MainWindow {
 		fileStatusMap.put(txtpnEventsMonFilename, txtpnEventsMonDateTime);
 
 		JTextPane txtpnNextTuesday = new JTextPane();
+		txtpnNextTuesday.setEditable(false);
 		txtpnNextTuesday.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnNextTuesday.setText("Tuesday");
 		GridBagConstraints gbc_txtpnNextTuesday = new GridBagConstraints();
@@ -583,6 +607,7 @@ public class MainWindow {
 		panelSouth.add(txtpnNextTuesday, gbc_txtpnNextTuesday);
 		
 		JTextPane txtpnEventsTueFilename = new JTextPane();
+		txtpnEventsTueFilename.setEditable(false);
 		txtpnEventsTueFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsTueFilename.setText(eventDailyFilenames[tuesdayIndex]);
 		GridBagConstraints gbc_txtpnEventsTueFilename = new GridBagConstraints();
@@ -594,6 +619,7 @@ public class MainWindow {
 		panelSouth.add(txtpnEventsTueFilename, gbc_txtpnEventsTueFilename);
 		
 		JTextPane txtpnEventsTueDateTime = new JTextPane();
+		txtpnEventsTueDateTime.setEditable(false);
 		txtpnEventsTueDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsTueDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnEventsTueDateTime = new GridBagConstraints();
@@ -607,6 +633,7 @@ public class MainWindow {
 		fileStatusMap.put(txtpnEventsTueFilename, txtpnEventsTueDateTime);
 
 		JTextPane txtpnNextWednesday = new JTextPane();
+		txtpnNextWednesday.setEditable(false);
 		txtpnNextWednesday.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnNextWednesday.setText("Wednesday");
 		GridBagConstraints gbc_txtpnNextWednesday = new GridBagConstraints();
@@ -618,6 +645,7 @@ public class MainWindow {
 		panelSouth.add(txtpnNextWednesday, gbc_txtpnNextWednesday);
 		
 		JTextPane txtpnEventsWedFilename = new JTextPane();
+		txtpnEventsWedFilename.setEditable(false);
 		txtpnEventsWedFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsWedFilename.setText(eventDailyFilenames[wednesdayIndex]);
 		GridBagConstraints gbc_txtpnEventsWedFilename = new GridBagConstraints();
@@ -629,6 +657,7 @@ public class MainWindow {
 		panelSouth.add(txtpnEventsWedFilename, gbc_txtpnEventsWedFilename);
 		
 		JTextPane txtpnEventsWedDateTime = new JTextPane();
+		txtpnEventsWedDateTime.setEditable(false);
 		txtpnEventsWedDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsWedDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnEventsWedDateTime = new GridBagConstraints();
@@ -642,6 +671,7 @@ public class MainWindow {
 		fileStatusMap.put(txtpnEventsWedFilename, txtpnEventsWedDateTime);
 
 		JTextPane txtpnNextThursday = new JTextPane();
+		txtpnNextThursday.setEditable(false);
 		txtpnNextThursday.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnNextThursday.setText("Thursday");
 		GridBagConstraints gbc_txtpnNextThursday = new GridBagConstraints();
@@ -653,6 +683,7 @@ public class MainWindow {
 		panelSouth.add(txtpnNextThursday, gbc_txtpnNextThursday);
 		
 		JTextPane txtpnEventsThuFilename = new JTextPane();
+		txtpnEventsThuFilename.setEditable(false);
 		txtpnEventsThuFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsThuFilename.setText(eventDailyFilenames[thursdayIndex]);
 		GridBagConstraints gbc_txtpnEventsThuFilename = new GridBagConstraints();
@@ -664,6 +695,7 @@ public class MainWindow {
 		panelSouth.add(txtpnEventsThuFilename, gbc_txtpnEventsThuFilename);
 		
 		JTextPane txtpnEventsThuDateTime = new JTextPane();
+		txtpnEventsThuDateTime.setEditable(false);
 		txtpnEventsThuDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsThuDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnEventsThuDateTime = new GridBagConstraints();
@@ -677,6 +709,7 @@ public class MainWindow {
 		fileStatusMap.put(txtpnEventsThuFilename, txtpnEventsThuDateTime);
 
 		JTextPane txtpnNextFriday = new JTextPane();
+		txtpnNextFriday.setEditable(false);
 		txtpnNextFriday.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnNextFriday.setText("Friday");
 		GridBagConstraints gbc_txtpnNextFriday = new GridBagConstraints();
@@ -688,6 +721,7 @@ public class MainWindow {
 		panelSouth.add(txtpnNextFriday, gbc_txtpnNextFriday);
 		
 		JTextPane txtpnEventsFriFilename = new JTextPane();
+		txtpnEventsFriFilename.setEditable(false);
 		txtpnEventsFriFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsFriFilename.setText(eventDailyFilenames[fridayIndex]);
 		GridBagConstraints gbc_txtpnEventsFriFilename = new GridBagConstraints();
@@ -699,6 +733,7 @@ public class MainWindow {
 		panelSouth.add(txtpnEventsFriFilename, gbc_txtpnEventsFriFilename);
 		
 		JTextPane txtpnEventsFriDateTime = new JTextPane();
+		txtpnEventsFriDateTime.setEditable(false);
 		txtpnEventsFriDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsFriDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnEventsFriDateTime = new GridBagConstraints();
@@ -712,6 +747,7 @@ public class MainWindow {
 		fileStatusMap.put(txtpnEventsFriFilename, txtpnEventsFriDateTime);
 
 		JTextPane txtpnNextSaturday = new JTextPane();
+		txtpnNextSaturday.setEditable(false);
 		txtpnNextSaturday.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnNextSaturday.setText("Saturday");
 		GridBagConstraints gbc_txtpnNextSaturday = new GridBagConstraints();
@@ -723,6 +759,7 @@ public class MainWindow {
 		panelSouth.add(txtpnNextSaturday, gbc_txtpnNextSaturday);
 		
 		JTextPane txtpnEventsSatFilename = new JTextPane();
+		txtpnEventsSatFilename.setEditable(false);
 		txtpnEventsSatFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsSatFilename.setText(eventDailyFilenames[saturdayIndex]);
 		GridBagConstraints gbc_txtpnEventsSatFilename = new GridBagConstraints();
@@ -734,6 +771,7 @@ public class MainWindow {
 		panelSouth.add(txtpnEventsSatFilename, gbc_txtpnEventsSatFilename);
 		
 		JTextPane txtpnEventsSatDateTime = new JTextPane();
+		txtpnEventsSatDateTime.setEditable(false);
 		txtpnEventsSatDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnEventsSatDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnEventsSatDateTime = new GridBagConstraints();
@@ -747,6 +785,7 @@ public class MainWindow {
 		fileStatusMap.put(txtpnEventsSatFilename, txtpnEventsSatDateTime);
 
 		JTextPane txtpnSignageeventsLayout = new JTextPane();
+		txtpnSignageeventsLayout.setEditable(false);
 		txtpnSignageeventsLayout.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnSignageeventsLayout.setText("Announcements+Events Ticker Layout");
 		GridBagConstraints gbc_txtpnSignageeventsLayout = new GridBagConstraints();
@@ -758,6 +797,7 @@ public class MainWindow {
 		panelSouth.add(txtpnSignageeventsLayout, gbc_txtpnSignageeventsLayout);
 		
 		JTextPane txtpnLayoutFilename = new JTextPane();
+		txtpnLayoutFilename.setEditable(false);
 		txtpnLayoutFilename.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnLayoutFilename.setText(tickerLayoutFilename);
 		GridBagConstraints gbc_txtpnLayoutFilename = new GridBagConstraints();
@@ -769,6 +809,7 @@ public class MainWindow {
 		panelSouth.add(txtpnLayoutFilename, gbc_txtpnLayoutFilename);
 		
 		JTextPane txtpnLayoutDateTime = new JTextPane();
+		txtpnLayoutDateTime.setEditable(false);
 		txtpnLayoutDateTime.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtpnLayoutDateTime.setText("(none)");
 		GridBagConstraints gbc_txtpnLayoutDateTime = new GridBagConstraints();
@@ -803,6 +844,7 @@ public class MainWindow {
 		verticalBoxRelaunch.add(textAreaRelaunchNow);
 		
 		JTextPane txtpnAutomaticRelaunchesAre = new JTextPane();
+		txtpnAutomaticRelaunchesAre.setEditable(false);
 		txtpnAutomaticRelaunchesAre.setText("FYI - Automatic relaunches are also scheduled nightly, to update events.");
 		verticalBoxRelaunch.add(txtpnAutomaticRelaunchesAre);
 		
@@ -1101,7 +1143,7 @@ public class MainWindow {
 			else {
 				JOptionPane.showMessageDialog(frame, "create ["+targetFilename+"] ...");				
 			}
-			JOptionPane.showMessageDialog(frame, "Complete!  Signage relaunch should finish shortly.");
+			JOptionPane.showMessageDialog(frame, "Complete!  Signage relaunch should finish shortly.  \nYou can exit, or wait and then manually refresh view of files.");
 		}
 	}
 	
@@ -1137,7 +1179,7 @@ public class MainWindow {
 			else {
 				JOptionPane.showMessageDialog(frame, "create ["+targetFilename+"] ...");				
 			}
-			JOptionPane.showMessageDialog(frame, "Complete!  Signage computer should reboot shortly.");
+			JOptionPane.showMessageDialog(frame, "Complete!  Signage computer should reboot shortly.  \nYou can exit, or wait and then manually refresh view of files.");
 		}
 	}
 	
@@ -1172,8 +1214,8 @@ public class MainWindow {
 			} catch (IOException exc) {
 		    	JOptionPane.showMessageDialog(frame, "Error writing to signage computer:\n"+targetFilename, "Unable to command erase and relaunch", JOptionPane.ERROR_MESSAGE);
 		    	return;
-			}
-			JOptionPane.showMessageDialog(frame, "Complete!  Clearing current events, plus signage relaunch, should finish shortly.");			
+			}			
+			JOptionPane.showMessageDialog(frame, "Complete!  Clearing current events, plus signage relaunch, should finish shortly.\nYou can exit, or wait and then manually refresh view of files below.");			
 		}
 	}
 	
@@ -1231,6 +1273,12 @@ public class MainWindow {
 				    	JOptionPane.showMessageDialog(frame, "Error writing to signage computer:\n"+targetFile.toPath().toString(), "Unable to copy layout file", JOptionPane.ERROR_MESSAGE);
 				    	return;
 					}
+					
+					// quietly initialize the displayed status information
+					final boolean origQuietRefresh = isQuietRefresh();
+					setQuietRefresh(true);
+					refreshStatusNow();   
+					setQuietRefresh(origQuietRefresh);
 					
 					JOptionPane.showMessageDialog(frame, "Ticker layout file: " + fc.getSelectedFile().toPath() + "\ncopied to signage computer: " + targetFile.getPath() + "\n(but signage not yet relaunched).", "Announcements file copied", JOptionPane.INFORMATION_MESSAGE);
 					break;
@@ -1294,6 +1342,12 @@ public class MainWindow {
 				    	JOptionPane.showMessageDialog(frame, "Error writing to signage computer:\n"+targetFile.toPath().toString(), "Unable to copy announcements file", JOptionPane.ERROR_MESSAGE);
 				    	return;
 					}
+					
+					// quietly initialize the displayed status information
+					final boolean origQuietRefresh = isQuietRefresh();
+					setQuietRefresh(true);
+					refreshStatusNow();   
+					setQuietRefresh(origQuietRefresh);
 					
 					JOptionPane.showMessageDialog(frame, "Announcements file: " + fc.getSelectedFile().toPath() + "\ncopied to signage computer: " + targetFile.getPath() + "\n(but signage not yet relaunched).", "Announcements file copied", JOptionPane.INFORMATION_MESSAGE);
 					break;
@@ -1363,6 +1417,12 @@ public class MainWindow {
 					    	return;
 						}
 					}					
+					
+					// quietly initialize the displayed status information
+					final boolean origQuietRefresh = isQuietRefresh();
+					setQuietRefresh(true);
+					refreshStatusNow();   
+					setQuietRefresh(origQuietRefresh);
 					
 					JOptionPane.showMessageDialog(frame, "" + filesCopied + " events file" + (eventFilenamesArray.length > 1 ? "s" : "") + " successfully copied to signage computer\n" + signageFolder + "\n(but signage not yet relaunched)", "Event file(s) copied", JOptionPane.INFORMATION_MESSAGE);
 					break;
@@ -1448,6 +1508,12 @@ public class MainWindow {
 					    	return;
 						}						
 					}					
+					
+					// quietly initialize the displayed status information
+					final boolean origQuietRefresh = isQuietRefresh();
+					setQuietRefresh(true);
+					refreshStatusNow();   
+					setQuietRefresh(origQuietRefresh);
 					
 					JOptionPane.showMessageDialog(frame, "" + filesErased + " events file" + (eventFilenamesArray.length > 1 ? "s" : "") + " erased from signage computer\n" + signageFolder, "Event file(s) erased", JOptionPane.INFORMATION_MESSAGE);
 					break;
