@@ -97,6 +97,9 @@ public class MainWindow {
 			"events_fri.pptx",
 			"events_sat.pptx"			
 			};
+	
+	private String announcementSubstring = "announce";	// usually part of the announcement filename
+	
 	// ==============================================
 	private final int sundayIndex = 0;
 	private final int mondayIndex = 1;
@@ -1327,6 +1330,18 @@ public class MainWindow {
 			int returnVal = fc.showDialog(frame, "Copy to signage");
 			switch (returnVal) {
 				case JFileChooser.APPROVE_OPTION:
+					// check for keywords in filename
+					if (fc.getSelectedFile().getName().toLowerCase().indexOf(announcementSubstring.toLowerCase()) < 0) {	// did not find usual text in the filename
+						// warn the user
+						if (JOptionPane.showConfirmDialog(frame, 
+								"Selected file \"" + fc.getSelectedFile().getName() + "\"\n does not include the word \"" + 
+										announcementSubstring + "\";\n are you sure this is the intended file?", 
+								"Please double-check filename", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
+							JOptionPane.showMessageDialog(frame, "No file copied.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
+							break;
+						}
+					}
+					
 					final String targetFilename = signageFolder + pathSeparator + newAnnouncementsFilename;
 					final File targetFile = new File(targetFilename);
 					try {
